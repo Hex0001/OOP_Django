@@ -4,17 +4,34 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
 class TemplateForm(forms.Form):
-    my_text = forms.CharField()
+    my_name = forms.CharField()
+    my_email = forms.EmailField()
+    my_pass = forms.CharField(widget=forms.PasswordInput)
+    my_date = forms.DateField()
+    my_number = forms.NumberInput()
+    my_check = forms.BooleanField()
     # choices в ChoiceField нужен только для отображения в HTML форме
-    my_select = forms.ChoiceField(choices=(
+    my_knowledge = forms.ChoiceField(choices=(
         ("begin", "Начальные"),
         ("middle", "Средние"),
         ("snake_speek", "Разговариваю со змеями"),
+        ("god", "Я сам питон")
     ))
     # widget тоже нужен только для отображения в HTML
-    my_textarea = forms.CharField(widget=forms.Textarea)
+    my_biography = forms.CharField(widget=forms.Textarea)
 
-    # TODO Опишите поля (поле для email, пароля, даты, целого числа, переключателя) и их параметры для вашего шаблона формы
+
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(widget=forms.EmailInput)
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+            if hasattr(self, "save_m2m"):
+                self.save_m2m()
+        return user
 
 
 """
