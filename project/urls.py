@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
     path('auth/', include('social_django.urls', namespace='social')),
-
+    path('landing/', include('landing.urls')),
     path('password_reset/',
          auth_views.PasswordResetView.as_view(template_name="app/password_reset_form.html",
                                               email_template_name="app/password_reset_email.html"),
