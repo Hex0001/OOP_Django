@@ -18,3 +18,12 @@ class TemplateForm(forms.Form):
     date = forms.DateField()
     ip = forms.CharField()
     user_agent = forms.CharField()
+
+
+class ContactForm(forms.Form):
+    fullname = forms.CharField()
+    contact_email = forms.EmailField()
+    contact_number = forms.RegexField(regex=r"(\+7|8)[\s(]*\d{3}[)\s]*\d{3}[\s-]?\d{2}[\s-]?\d{2}")
+    contact_msg = forms.CharField(widget=forms.Textarea)
+    ip = forms.CharField()
+    user_agent = forms.CharField()
