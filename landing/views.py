@@ -39,3 +39,5 @@ class LandingView(TemplateView):
             context = self.get_context_data(**kwargs)
             context["contact_form"] = form
             return self.render_to_response(context)
+        else:
+            raise ValueError("Ошибка определения имени кнопки при вызове представления LandingView")
